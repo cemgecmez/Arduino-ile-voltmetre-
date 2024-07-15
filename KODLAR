@@ -1,0 +1,31 @@
+
+
+Kodlar
+
+#include "LiquidCrystal.h"
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
+int analogI = 0;
+float vout = 0.0 ;
+float vin = 0.0;
+float R1 = 100000.0; 
+float R2 = 10000.0; 
+int value = 0;
+void setup(){
+   pinMode(analogI, INPUT);
+   lcd.begin(16, 2);
+   lcd.print("DC VOLTMETER");
+}
+void loop(){
+   
+   value = analogRead(analogI);
+   vout = (value * 5.0) / 1024.0; 
+   vin = vout / (R2/(R1+R2)); 
+   if (vin<0.09) {
+   vin=0.0;
+} 
+lcd.setCursor(0, 1);
+lcd.print("VOLTAJ V= ");
+lcd.print(vin);
+delay(500);
+}
+
